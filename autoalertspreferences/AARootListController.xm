@@ -259,6 +259,11 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
 
         [deleteAlert addAction:deleteAction];
         [deleteAlert addAction:cancelAction];
+		
+		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+		
+		deleteAlert.popoverPresentationController.sourceView = cell;
+		deleteAlert.popoverPresentationController.sourceRect = cell.bounds;
 
         [self presentViewController:deleteAlert animated:YES completion:nil];
     }

@@ -243,6 +243,9 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
     [alert addAction:saveAction];
     [alert addAction:saveAndRunAction];
     [alert addAction:cancelAction];
+    
+    alert.popoverPresentationController.sourceView = self.doneButton;
+    alert.popoverPresentationController.sourceRect = self.doneButton.bounds;
 
     [self presentViewController:alert animated:YES completion:nil];
 }

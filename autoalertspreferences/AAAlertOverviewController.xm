@@ -116,6 +116,8 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
     [deleteAlert addAction:deleteAction];
     [deleteAlert addAction:cancelAction];
 
+    deleteAlert.popoverPresentationController.barButtonItem = sender;
+
     [self presentViewController:deleteAlert animated:YES completion:nil];
 }
 
