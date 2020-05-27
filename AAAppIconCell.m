@@ -52,8 +52,13 @@
     UIView *topSeparatorView = [self valueForKey:@"_topSeparatorView"];
     topSeparatorView.hidden = YES;
 
-    self.contentView.backgroundColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor whiteColor];
+    if (@available(iOS 13, *)) {
+        self.contentView.backgroundColor = [UIColor systemBackgroundColor];
+        self.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 -(void)dealloc {

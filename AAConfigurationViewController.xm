@@ -48,7 +48,11 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
         self.customAppActions = customAppActions;
 
         self.fakeNavBar = [[[UIView alloc] init] autorelease];
-        self.fakeNavBar.backgroundColor = [UIColor whiteColor];
+        if (@available(iOS 13, *)) {
+            self.fakeNavBar.backgroundColor = [UIColor systemBackgroundColor];
+        } else {
+            self.fakeNavBar.backgroundColor = [UIColor whiteColor];
+        }
 
         [self.view addSubview:self.fakeNavBar];
 
@@ -84,7 +88,11 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
 
     self.tableView = [[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped] autorelease];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    if (@available(iOS 13, *)) {
+        self.tableView.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        self.tableView.backgroundColor = [UIColor whiteColor];
+    }
     self.tableView.preservesSuperviewLayoutMargins = YES;
 
     [self.view addSubview:self.tableView];
@@ -117,7 +125,14 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
         }
     }
 
-    CGFloat fakeNavBarHeight = statusBarHeight == 0.0 ? 32.0 : statusBarHeight + 44.0;
+    CGFloat fakeNavBarHeight;
+
+    if (@available(iOS 13, *)) {
+        fakeNavBarHeight = 56.0;
+        statusBarHeight = 0.0;
+    } else {
+        fakeNavBarHeight = statusBarHeight == 0.0 ? 32.0 : statusBarHeight + 44.0;
+    }
 
     self.fakeNavBar.frame = CGRectMake(
         0.0,
@@ -301,8 +316,13 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
             cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize];
         }
 
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        cell.backgroundColor = [UIColor whiteColor];
+        if (@available(iOS 13, *)) {
+            cell.contentView.backgroundColor = [UIColor systemBackgroundColor];
+            cell.backgroundColor = [UIColor systemBackgroundColor];
+        } else {
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            cell.backgroundColor = [UIColor whiteColor];
+        }
 
         cell.accessoryType = indexPath == self.selectedActionIndexPath ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 
@@ -320,8 +340,13 @@ extern "C" CFNotificationCenterRef CFNotificationCenterGetDistributedCenter(void
             cell.textLabel.text = @"In Every App";
         }
 
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        cell.backgroundColor = [UIColor whiteColor];
+        if (@available(iOS 13, *)) {
+            cell.contentView.backgroundColor = [UIColor systemBackgroundColor];
+            cell.backgroundColor = [UIColor systemBackgroundColor];
+        } else {
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            cell.backgroundColor = [UIColor whiteColor];
+        }
 
         cell.accessoryType = indexPath == self.selectedLimitationIndexPath ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 
